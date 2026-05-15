@@ -1,21 +1,15 @@
 {
-  "compatibility_date": "2025-04-01",
-  "main": "src/index.ts",
   "name": "916slabs",
-  "assets": {
-    "directory": "node_modules/r2-explorer/dashboard",
-    "binding": "ASSETS",
-    "html_handling": "auto-trailing-slash",
-    "not_found_handling": "single-page-application"
-  },
+  "main": "src/index.ts",
+  "compatibility_date": "2025-04-01",
+  "account_id": "YOUR_CLOUDFLARE_ACCOUNT_ID",
+  "routes": [
+    { "pattern": "api/*", "zone_name": "916slabs.workers.dev" }
+  ],
   "r2_buckets": [
     {
-      "binding": "bucket",
-      "bucket_name": "gross-pees",
-      "preview_bucket_name": "r2-explorer-bucket"
+      "binding": "BUCKET",  // Must match the `Env` interface
+      "bucket_name": "gross-pees"
     }
-  ],
-  "observability": {
-    "enabled": true
-  },
-  "upload_source_maps": true
+  ]
+}
