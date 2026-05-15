@@ -16,12 +16,17 @@ jobs:
         with:
           node-version: 20
 
+      - name: Disable Bun (force npm)
+        run: |
+          echo "NODE_OPTIONS=--no-experimental-global-webcrypto" >> $GITHUB_ENV
+          echo "npm_config_user_agent=npm" >> $GITHUB_ENV
+
       - name: Delete package-lock.json and node_modules
         run: |
           rm -f package-lock.json
           rm -rf node_modules
 
-      - name: Install dependencies with npm (force npm, not bun)
+      - name: Install dependencies with npm
         run: npm install --ignore-scripts
 
       - name: Deploy to Cloudflare Workers
