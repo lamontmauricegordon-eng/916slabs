@@ -1,31 +1,30 @@
-{
-  "name": "916slabs",
-  "version": "1.0.0",
-  "description": "TypeScript-based Cloudflare Worker with R2 bucket support",
-  "main": "src/index.ts",
-  "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "build": "tsc",
-    "test": "jest",
-    "lint": "eslint src/**/*.ts",
-    "format": "prettier --write \"src/**/*.ts\""
-  },
-  "dependencies": {
-    "@cloudflare/workers-types": "^4.20260515.1",
-    "wrangler": "^4.91.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.9.3",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.4.9",
-    "@types/jest": "^29.5.14",
-    "eslint": "^8.57.1",
-    "@typescript-eslint/parser": "^6.21.0",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "prettier": "^3.8.3"
-  },
-  "engines": {
-    "node": "20.x"
-  }
-}
+name: Deploy 916slabs
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Delete package-lock.json and node_modules
+        run: |
+          rm -f package-lock.json
+          rm -rf node_modules
+
+      - name: Install dependencies with npm
+        run: npm install
+
+      - name: Deploy to Cloudflare Workers
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
