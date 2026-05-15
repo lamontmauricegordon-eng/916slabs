@@ -82,4 +82,5 @@ By default this template is **readonly**.
 
 in order for you to enable editing, just update the `readonly` flag in your `src/index.ts` file.
 
-Its highly recommended that you setup security first, [learn more here](https://r2explorer.com/getting-started/security/).
+Its highly recommended that you setup security first, [learn more here](https://r2explorer.com/getting-started/security/
+
