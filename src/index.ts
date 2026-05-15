@@ -1,39 +1,65 @@
 import { Logger } from './utils/logger';
 import { handleError } from './utils/errorHandler';
 
-// Initialize logger
 const logger = new Logger();
 
-// Cloudflare Workers environment type
 interface Env {
-  BUCKET: R2Bucket; // Binding for your R2 bucket (matches wrangler.json)
+  BUCKET: R2Bucket;
 }
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     try {
-      logger.info('Processing request...');
+      logger.info(`Processing ${request.method} request to ${request.url}...`);
       const url = new URL(request.url);
 
-      // API endpoint
-      if (url.pathname === '/api/endpoint') {
+      // Handle GET requests to /api/endpoint
+      if (request.method === "GET" && url.pathname === '/api/endpoint') {
         return new Response(
           JSON.stringify({ message: "Hello from 916slabs!" }),
-          { headers: { 'Content-Type': 'application/json' } }
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            },
+          }
         );
       }
 
-      // Example: List files in R2 bucket (if needed)
-      if (url.pathname === '/api/list-files') {
-        const files = await env.BUCKET.list();
+      // Handle POST requests to /api/endpoint (if needed)
+      if (request.method === "POST" && url.pathname === '/api/endpoint') {
+        const body = await request.json();
         return new Response(
-          JSON.stringify({ files: files.objects.map(obj => obj.key) }),
-          { headers: { 'Content-Type': 'application/json' } }
+          JSON.stringify({ message: "POST received!", body }),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            },
+          }
         );
       }
 
-      // Fallback for unknown routes
-      return new Response('Not Found', { status: 404 });
+      // Handle OPTIONS for CORS preflight
+      if (request.method === "OPTIONS") {
+        return new Response(null, {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
+        });
+      }
+
+      // Fallback for unknown routes/methods
+      return new Response('Not Found', {
+        status: 404,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+      });
     } catch (error) {
       return handleError(error, logger);
     }
