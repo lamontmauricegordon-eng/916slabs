@@ -12,8 +12,9 @@
     "format": "prettier --write \"src/**/*.ts\""
   },
   "dependencies": {
-    "@cloudflare/workers-types": "^4.20240512.0",
-    "wrangler": "^3.50.0"
+  "@cloudflare/workers-types": "^4.20260515.1",
+  "wrangler": "^4.91.0"
+}
   },
   "devDependencies": {
     "typescript": "^5.8.3",
