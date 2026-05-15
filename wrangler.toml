@@ -3,7 +3,7 @@ main = "src/index.ts"
 compatibility_date = "2025-04-01"
 account_id = "af5af9889479686652f6daf15ed9a29e"
 
-[r2_buckets]
+[[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "gross-pees"
 
