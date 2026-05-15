@@ -11,23 +11,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
-      - name: Disable Bun (force npm)
-        run: |
-          echo "NODE_OPTIONS=--no-experimental-global-webcrypto" >> $GITHUB_ENV
-          echo "npm_config_user_agent=npm" >> $GITHUB_ENV
-
-      - name: Delete package-lock.json and node_modules
-        run: |
-          rm -f package-lock.json
-          rm -rf node_modules
-
-      - name: Install dependencies with npm
-        run: npm install --ignore-scripts
+      - name: Install dependencies
+        run: npm ci
 
       - name: Deploy to Cloudflare Workers
         run: npx wrangler@4 deploy
