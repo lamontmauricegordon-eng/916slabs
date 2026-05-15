@@ -6,7 +6,8 @@ account_id = "af5af9889479686652f6daf15ed9a29e"
 # R2 Buckets (MUST be an array with double brackets)
 [[r2_buckets]]
 binding = "BUCKET"
-bucket_name = "gross-pees"
+bucket_name = BUCKET"
+
 
 # Routes (also an array)
 [[routes]]
