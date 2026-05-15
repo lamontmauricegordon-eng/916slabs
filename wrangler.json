@@ -1,22 +1,15 @@
 {
   "name": "916slabs",
   "compatibility_date": "2025-05-01",
-  "main": "node_modules/r2-explorer/dist/worker.js",
-  "assets": {
-    "directory": "node_modules/r2-explorer/dashboard",
-    "binding": "ASSETS",
-    "html_handling": "auto-trailing-slash",
-    "not_found_handling": "single-page-application"
-  },
+  "main": "src/index.ts",
   "r2_buckets": [
     {
-      "binding": "bucket",
+      "binding": "BUCKET",
       "bucket_name": "gross-pees",
       "preview_bucket_name": "r2-explorer-bucket"
     }
   ],
   "observability": {
     "enabled": true
-  },
-  "upload_source_maps": true
+  }
 }
