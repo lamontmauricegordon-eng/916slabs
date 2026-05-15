@@ -1,7 +1,7 @@
 {
-  "compatibility_date": "2025-04-01",
-  "main": "src/index.ts",
   "name": "916slabs",
+  "compatibility_date": "2025-05-01",
+  "main": "node_modules/r2-explorer/dist/worker.js",
   "assets": {
     "directory": "node_modules/r2-explorer/dashboard",
     "binding": "ASSETS",
