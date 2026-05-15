@@ -21,10 +21,10 @@ jobs:
           rm -f package-lock.json
           rm -rf node_modules
 
-      - name: Install dependencies with npm
-        run: npm install
+      - name: Install dependencies with npm (force npm, not bun)
+        run: npm install --ignore-scripts
 
       - name: Deploy to Cloudflare Workers
-        run: npx wrangler deploy
+        run: npx wrangler@4 deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
