@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20240512.0",
-    "wrangler": "^3.0.0"
+    "wrangler": "^3.50.0"  // Updated to latest stable version
   },
   "devDependencies": {
     "typescript": "^5.8.3",
