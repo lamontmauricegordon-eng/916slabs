@@ -20,7 +20,7 @@ jobs:
         run: |
           cat > README.md << 'EOF'
           # 916slabs
-          A TypeScript-based project deployed on Cloudflare Workers.
+          A TypeScript-based project deployed on Cloudflare Workers and Pages.
 
           ## Setup
           1. Install dependencies:
@@ -49,7 +49,11 @@ jobs:
 
           ## CI/CD
           - Automated via GitHub Actions (test → build → deploy).
-          - Uses `wrangler` for Cloudflare deployment.
+          - Uses `wrangler` for Cloudflare Workers and Pages deployment.
+
+          ## Deployment
+          - **Cloudflare Workers:** API endpoints
+          - **Cloudflare Pages:** Static site hosting
 
           ## License
           MIT
@@ -61,12 +65,13 @@ jobs:
           {
             "name": "916slabs",
             "version": "1.0.0",
-            "description": "TypeScript project for Cloudflare Workers",
+            "description": "TypeScript project for Cloudflare Workers and Pages",
             "main": "src/index.ts",
             "scripts": {
               "build": "tsc",
               "test": "jest",
               "deploy": "wrangler deploy",
+              "deploy:pages": "wrangler pages deploy dist",
               "dev": "wrangler dev",
               "audit": "npm audit",
               "lint": "eslint src/**/*.ts"
@@ -82,7 +87,8 @@ jobs:
             "devDependencies": {
               "@types/jest": "^29.5.12",
               "@types/node": "^20.11.0",
-              "snyk": "^1.1234.0"
+              "snyk": "^1.1234.0",
+              "wrangler": "^3.45.0"
             }
           }
           EOF
@@ -109,6 +115,37 @@ jobs:
             "include": ["src/**/*"],
             "exclude": ["node_modules", "dist"]
           }
+          EOF
+
+      - name: Create wrangler.toml
+        run: |
+          cat > wrangler.toml << 'EOF'
+          name = "916slabs"
+          type = "javascript"
+          account_id = ""
+          workers_dev = true
+          route = ""
+          zone_id = ""
+
+          [env.production]
+          name = "916slabs-prod"
+          routes = [
+            { pattern = "example.com/*", zone_name = "example.com" }
+          ]
+
+          [build]
+          command = "npm run build"
+          cwd = "./"
+          watch_paths = ["src/**/*.ts"]
+
+          [build.upload]
+          format = "service-worker"
+
+          [site]
+          bucket = "dist"
+
+          [triggers.crons]
+          crons = ["0 0 * * *"]
           EOF
 
       - name: Create CI/CD workflow
@@ -150,7 +187,7 @@ jobs:
                     name: dist
                     path: dist/
 
-            deploy:
+            deploy-workers:
               needs: build
               runs-on: ubuntu-latest
               steps:
@@ -162,6 +199,23 @@ jobs:
                 - run: npm run deploy
                   env:
                     CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                    CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+            deploy-pages:
+              needs: build
+              runs-on: ubuntu-latest
+              steps:
+                - uses: actions/checkout@v4
+                - uses: actions/setup-node@v4
+                  with:
+                    node-version: 20
+                - run: npm ci
+                - run: npm run build
+                - uses: cloudflare/wrangler-action@v3
+                  with:
+                    apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                    accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                    command: pages deploy dist --project-name=916slabs
           EOF
 
       - name: Create src/index.ts
@@ -265,5 +319,5 @@ jobs:
           git config --global user.name "Lamont Gordon"
           git config --global user.email "your-email@example.com"
           git add .
-          git commit -m "feat: Add improvements to 916slabs repository"
+          git commit -m "feat: Add Cloudflare Pages support to 916slabs repository"
           git push origin HEAD:improvements/916slabs
