@@ -129,7 +129,7 @@ jobs:
                 - uses: actions/checkout@v4
                 - uses: actions/setup-node@v4
                   with:
-                    node-version: 20
+                    node-version: 22
                 - run: npm ci
                 - run: npm test
                 - run: npm run lint
@@ -142,7 +142,7 @@ jobs:
                 - uses: actions/checkout@v4
                 - uses: actions/setup-node@v4
                   with:
-                    node-version: 20
+                    node-version: 22
                 - run: npm ci
                 - run: npm run build
                 - uses: actions/upload-artifact@v3
@@ -157,7 +157,7 @@ jobs:
                 - uses: actions/checkout@v4
                 - uses: actions/setup-node@v4
                   with:
-                    node-version: 20
+                    node-version: 22
                 - run: npm ci
                 - run: npm run deploy
                   env:
