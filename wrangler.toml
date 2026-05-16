@@ -1,15 +1,7 @@
 name = "916slabs"
 main = "src/index.ts"
-compatibility_date = "2025-04-01"
-account_id = "af5af9889479686652f6daf15ed9a29e"
+compatibility_date = "2024-09-23"
 
-# R2 Buckets (MUST be an array with double brackets)
 [[r2_buckets]]
 binding = "BUCKET"
-bucket_name = BUCKET"
-
-
-# Routes (also an array)
-[[routes]]
-pattern = "api/*"
-zone_name = "916slabs.workers.dev"
+bucket_name = "916-slabs-bucket"
