@@ -1,7 +1,0 @@
-name = "916slabs"
-main = "src/index.ts"
-compatibility_date = "2024-09-23"
-
-[[r2_buckets]]
-binding = "BUCKET"
-bucket_name = "916-slabs-bucket"
