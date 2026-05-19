@@ -65,39 +65,4 @@ export default {
       // Upload file
       if (request.method === 'POST' && url.pathname === '/api/files/upload') {
         const formData = await request.formData();
-        const file = formData.get('file') as File;
-        if (!file) {
-          return new Response(JSON.stringify({ error: 'No file provided' }), { status: 400, headers });
-        }
-
-        const key = `BinderExports/${file.name}`;
-        await env.BUCKET.put(key, file.stream(), {
-          httpMetadata: { contentType: file.type },
-        });
-
-        return new Response(JSON.stringify({ message: 'Uploaded!', key }), { status: 201, headers });
-      }
-
-      // Delete file
-      if (request.method === 'DELETE' && url.pathname === '/api/files') {
-        const name = url.searchParams.get('name');
-        if (!name) {
-          return new Response(JSON.stringify({ error: 'Missing ?name=' }), { status: 400, headers });
-        }
-
-        await env.BUCKET.delete(name);
-        return new Response(JSON.stringify({ message: 'Deleted!', key: name }), { headers });
-      }
-
-      // Fallback
-      return new Response('Not Found', { status: 404, headers });
-
-    } catch (error: any) {
-      console.error('Error:', error);
-      return new Response(
-        JSON.stringify({ error: error.message || 'Internal Server Error' }),
-        { status: 500, headers }
-      );
-    }
-  },
-};
+        const file = formData.get('file') as File | null
