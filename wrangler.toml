@@ -1,5 +1,5 @@
 name = "916slabs"
-pages_build_output_dir = "./dist"
+pages_build_output_dir = "./public"  # Directory for static files (e.g., HTML, CSS, JS)
 
 [[r2_buckets]]
 binding = "BUCKET"
