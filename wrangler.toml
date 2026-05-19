@@ -1,0 +1,9 @@
+name = "916slabs"
+compatibility_date = "2025-05-01"
+
+pages_build_output_dir = "./dist"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "gross-pees"
+preview_bucket_name = "r2-explorer-bucket"
