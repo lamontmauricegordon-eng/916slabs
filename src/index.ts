@@ -13,6 +13,7 @@ export default {
       'Access-Control-Allow-Headers': 'Content-Type',
     };
 
+    // CORS Preflight
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers });
     }
@@ -41,13 +42,17 @@ export default {
         return new Response(JSON.stringify({ files }), { headers });
       }
 
-      // Download
+      // Download file
       if (request.method === 'GET' && url.pathname === '/api/files/download') {
         const name = url.searchParams.get('name');
-        if (!name) return new Response(JSON.stringify({ error: 'Missing ?name=' }), { status: 400, headers });
+        if (!name) {
+          return new Response(JSON.stringify({ error: 'Missing ?name=' }), { status: 400, headers });
+        }
 
         const object = await env.BUCKET.get(name);
-        if (!object) return new Response(JSON.stringify({ error: 'File not found' }), { status: 404, headers });
+        if (!object) {
+          return new Response(JSON.stringify({ error: 'File not found' }), { status: 404, headers });
+        }
 
         return new Response(object.body, {
           headers: {
@@ -57,36 +62,42 @@ export default {
         });
       }
 
-      // Upload
+      // Upload file
       if (request.method === 'POST' && url.pathname === '/api/files/upload') {
         const formData = await request.formData();
         const file = formData.get('file') as File;
-        if (!file) return new Response(JSON.stringify({ error: 'No file provided' }), { status: 400, headers });
+        if (!file) {
+          return new Response(JSON.stringify({ error: 'No file provided' }), { status: 400, headers });
+        }
 
         const key = `BinderExports/${file.name}`;
         await env.BUCKET.put(key, file.stream(), {
           httpMetadata: { contentType: file.type },
         });
+
         return new Response(JSON.stringify({ message: 'Uploaded!', key }), { status: 201, headers });
       }
 
-      // Delete
+      // Delete file
       if (request.method === 'DELETE' && url.pathname === '/api/files') {
         const name = url.searchParams.get('name');
-        if (!name) return new Response(JSON.stringify({ error: 'Missing ?name=' }), { status: 400, headers });
+        if (!name) {
+          return new Response(JSON.stringify({ error: 'Missing ?name=' }), { status: 400, headers });
+        }
 
         await env.BUCKET.delete(name);
         return new Response(JSON.stringify({ message: 'Deleted!', key: name }), { headers });
       }
 
+      // Fallback
       return new Response('Not Found', { status: 404, headers });
 
     } catch (error: any) {
-      console.error(error);
-      return new Response(JSON.stringify({ error: error.message || 'Internal error' }), { 
-        status: 500, 
-        headers 
-      });
+      console.error('Error:', error);
+      return new Response(
+        JSON.stringify({ error: error.message || 'Internal Server Error' }),
+        { status: 500, headers }
+      );
     }
   },
 };
