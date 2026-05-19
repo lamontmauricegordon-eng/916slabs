@@ -1,8 +1,8 @@
 name = "916slabs"
 compatibility_date = "2026-05-19"
-main = "dist/worker.ts"  # or "./dist/worker.js" if you want to use the compiled output
+main = "./dist/worker.js"  # or "./src/worker.js" if you want to use the compiled output
 
-[[r2_buckets]]
+[r2_buckets]
 binding = "BUCKET"
 bucket_name = "916-slabs"
 preview_bucket_name = "r2-explorer-bucket"
