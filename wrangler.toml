@@ -1,4 +1,5 @@
 name = "916slabs"
+pages_build_output_dir = "./public"  # Directory for static files (e.g., HTML, CSS, JS)
 compatibility_date = "2026-05-19"
 main = "./dist/worker.js"  # or "./src/worker.js" if you want to use the compiled output
 
