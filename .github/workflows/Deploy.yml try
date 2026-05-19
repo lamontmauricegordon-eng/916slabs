@@ -1,35 +1,55 @@
-name: Deploy 916slabs
+name: Build and Deploy
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - master
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 22
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Disable Bun (force npm)
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build with logs
         run: |
-          echo "NODE_OPTIONS=--no-experimental-global-webcrypto" >> $GITHUB_ENV
-          echo "npm_config_user_agent=npm" >> $GITHUB_ENV
+          mkdir -p ${{ runner.temp }}/build_logs
+          echo "Starting Jekyll build..." >> ${{ runner.temp }}/build_logs/build.log
+          jekyll build >> ${{ runner.temp }}/build_logs/build.log 2>&1
 
-      - name: Delete package-lock.json and node_modules
-        run: |
-          rm -f package-lock.json
-          rm -rf node_modules
+      - name: Upload logs on fail
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build failure logs
+          path: ${{ runner.temp }}/build_logs
 
-      - name: Install dependencies with npm
-        run: npm install --ignore-scripts
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ success() }}
 
-      - name: Deploy to Cloudflare Workers
-        run: npx wrangler@4 deploy
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Wrangler
+        run: npm install -g wrangler
+
+      - name: Publish to Cloudflare
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          Hung_slabs: ${{ secrets.Hung_slabs }}
+          Acct_API_slabs: ${{ secrets.Acct_API_slabs }}
+        run: wrangler deploy
