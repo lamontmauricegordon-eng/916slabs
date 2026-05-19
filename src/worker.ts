@@ -1,28 +1,20 @@
-/* eslint-disable @typescript-eslint/no-explicit-any -- Reason: Temporary any for Cloudflare env types */
-type Fetcher = {
-  fetch(
-    request: RequestInfo | Request,
-    init?: RequestInit,
-  ): Promise<Response>;
-};
+import { Env } from "./env";
 
-type KVNamespace = any;
-type DurableObject = any;
-type R2Bucket = 916-slabs;
-type R2Object = any;
-
-declare global {
-  const ENVIRONMENT: string;
-  const VERSION_METADATA: {
-    id: string;
-    tag: string;
-  };
-}
-
-// Default fetch handler for Cloudflare Worker 
 export default {
-  async fetch(request: Request, env: any): Promise<Response> {
-    const secretValue = env.Hung_slabs;
-    return new Response(`Secret is set: ${env.Hung_slabs? 'Yes' : 'No'}`);
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const hung = env.Hung_slabs;
+    const acct = env.Acct_API_slabs;
+
+    return new Response(
+      JSON.stringify(
+        {
+          Hung_slabs: hung ? "Yes" : "No",
+          Acct_API_slabs: acct ? "Yes" : "No"
+        },
+        null,
+        2
+      ),
+      { headers: { "Content-Type": "application/json" } }
+    );
   }
 };
