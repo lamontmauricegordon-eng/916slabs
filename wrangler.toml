@@ -1,9 +1,8 @@
 name = "916slabs"
-compatibility_date = "2025-05-01"
-
-pages_build_output_dir = "./dist"
+compatibility_date = "2026-05-19"
+main = "src/worker.ts"  # or "./dist/worker.js" if you want to use the compiled output
 
 [[r2_buckets]]
 binding = "BUCKET"
-bucket_name = "gross-pees"
+bucket_name = "916-slabs"
 preview_bucket_name = "r2-explorer-bucket"
