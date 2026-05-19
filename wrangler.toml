@@ -1,9 +1,17 @@
 name = "916slabs"
-pages_build_output_dir = "./public"  # Directory for static files (e.g., HTML, CSS, JS)
+account_id = "af5af9889479686652f6daf15ed9a29e"
 compatibility_date = "2026-05-19"
-main = "./dist/worker.js"  # or "./src/worker.js" if you want to use the compiled output
 
-[r2_buckets]
+main = "./dist/worker.js"
+
+[build]
+command = "jekyll build"
+pages_build_output_dir = "_site"
+
+[site]
+bucket = "_site"
+
+[[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "916-slabs"
 preview_bucket_name = "r2-explorer-bucket"
