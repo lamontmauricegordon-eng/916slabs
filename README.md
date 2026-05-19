@@ -2,7 +2,9 @@
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/r2-explorer-template)
 
+
 ![R2 Explorer Template Preview](https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/e3c4ab7e-43f2-49df-6317-437f4ae8ce00/public)
+
 
 <!-- dash-content-start -->
 
@@ -73,10 +75,13 @@ A live public deployment of this template is available at [https://demo.r2explor
    npx wrangler tail
    ```
 
+
+
 ## Next steps
 
 By default this template is **readonly**.
 
 in order for you to enable editing, just update the `readonly` flag in your `src/index.ts` file.
 
-Its highly recommended that you setup security first, [learn more here](https://r2explorer.com/getting-started/security/).
+Its highly recommended that you setup security first, [learn more here](https://r2explorer.com/getting-started/security/
+
