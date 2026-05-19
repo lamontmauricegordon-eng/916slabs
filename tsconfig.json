@@ -8,9 +8,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFilenames": true,
-    "outDir": "./dist",
-    "rootDir": "./src"
+    "forceConsistentCasingInFilenames": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
