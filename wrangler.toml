@@ -1,5 +1,5 @@
 name = "916slabs"
-pages_build_output_dir = "./update_worker_name_to_816"
+pages_build_output_dir = "./dist"
 
 [[r2_buckets]]
 binding = "BUCKET"
