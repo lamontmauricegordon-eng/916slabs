@@ -1,4 +1,4 @@
-name = "916slabs"
+name = "816"
 compatibility_date = "2026-05-19"
 main = "src/worker.ts"  # or "./dist/worker.js" if you want to use the compiled output
 
