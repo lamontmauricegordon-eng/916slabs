@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "916slabs",
+  "name": "916-slabs",
   "main": "src/index.ts",
   "compatibility_date": "2025-05-01",
   
