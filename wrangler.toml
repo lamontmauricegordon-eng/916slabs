@@ -1,8 +1,7 @@
-name = "816"
-compatibility_date = "2026-05-19"
-main = "src/worker.ts"  # or "./dist/worker.js" if you want to use the compiled output
+name = "916slabs"
+pages_build_output_dir = "./dist"
 
 [[r2_buckets]]
 binding = "BUCKET"
-bucket_name = "916slabs"
+bucket_name = "916-slabs"
 preview_bucket_name = "r2-explorer-bucket"
