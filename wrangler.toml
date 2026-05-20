@@ -1,17 +1,22 @@
 name = "816"
-account_id = "af5af9889479686652f6daf15ed9a29e"
-compatibility_date = "2026-05-19"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
 
-main = "./dist/worker.js"
-
-[build]
-command = "jekyll build"
-pages_build_output_dir = "_site"
-
-[site]
-bucket = "_site"
+[ai]
+binding = "AI"
 
 [[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "916-slabs"
-preview_bucket_name = "r2-explorer-bucket"
+
+[[kv_namespaces]]
+binding = "KV_CACHE"
+id = "27e94f03c5414afea22cc2c9bfbe1ec8"
+
+[[kv_namespaces]]
+binding = "EXPORT_LOGS"
+id = "6e9d7e858bc44719ad56f6a5ec1ff1af"
+
+[[services]]
+binding = "FILE_SERVICE"
+service = "916-slabs"
