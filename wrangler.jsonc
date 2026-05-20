@@ -1,19 +1,18 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "916-slabs",
-  "main": "src/index.ts",
   "compatibility_date": "2025-05-01",
   
   "r2_buckets": [
     {
       "binding": "BUCKET",
-      "bucket_name": "gross-pees",
+      "bucket_name": "916-slabs",
       "preview_bucket_name": "r2-explorer-bucket"
     }
   ],
 
   "observability": {
-    "enabled": true
+    "enabled": false
   },
 
   "pages_build_output_dir": "./dist"
