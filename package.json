@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "wrangler pages dev",
     "build": "tsc",
-    "deploy": "wrangler pages deploy dist",
+    "deploy": "powershell -ExecutionPolicy Bypass -File deploy.ps1",
     "test": "jest",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write \"src/**/*.ts\""
