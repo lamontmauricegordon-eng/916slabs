@@ -1,7 +1,6 @@
 916SLABS — README.md
 # 🪨 916SLABS
 
-
 **Professional Slab Inventory & AI Platform**
 
 Built on Cloudflare's global edge network. Upload, manage, describe, and sell slabs — powered by AI.
