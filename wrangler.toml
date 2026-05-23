@@ -1,28 +1,9 @@
-name = "916slabs"
-
-main = "src/index.ts"
-
-compatibility_date = "2026-05-23"
-compatibility_flags = ["nodejs_compat"]
-
-workers_dev = true
-
-minify = true
-send_metrics = true
-preview_urls = true
-
-[assets]
-directory = "./public"
-binding = "ASSETS"
-html_handling = "auto-trailing-slash"
-not_found_handling = "404-page"
-
-[observability]
-enabled = true
+name = "916-slabs"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "_site"
 
 [vars]
 ENVIRONMENT = "production"
-APP_NAME = "916slabs"
 
 [[kv_namespaces]]
 binding = "KV_SLABS"
@@ -38,14 +19,3 @@ service = "916-slabs"
 
 [ai]
 binding = "AI_SLABS"
-
-[dev]
-port = 8787
-local_protocol = "http"
-upstream_protocol = "https"
-
-[placement]
-mode = "smart"
-
-[limits]
-cpu_ms = 300000
