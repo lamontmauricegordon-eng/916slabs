@@ -21,7 +21,5 @@
     "typescript": "^5.8.0",
     "wrangler": "^4.0.0"
   },
-  "dependencies": {
-    "cloudflare:workers": "latest"
-  }
+  "dependencies": {}
 }
