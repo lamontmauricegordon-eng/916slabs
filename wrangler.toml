@@ -1,59 +1,51 @@
 name = "916slabs"
+
 main = "src/index.ts"
-compatibility_date = "2026-05-01"
-compatibility_flags = ["nodejs_compat", "experimental_d1"]
 
-pages_build_output_dir = "_site"
+compatibility_date = "2026-05-23"
+compatibility_flags = ["nodejs_compat"]
 
-# ==================== AI Binding ====================
-[ai]
-binding = "AI"
+workers_dev = true
 
-# ==================== Workflows ====================
-[[workflows]]
-name = "content-processor"
-class_name = "ContentProcessorWorkflow"
+minify = true
+send_metrics = true
+preview_urls = true
 
-# ==================== KV Namespaces ====================
-[[kv_namespaces]]
-binding = "KV"
-id = "KV slabs__916slabs1-workers_sites_assets"   # Using the KV you listed
+[assets]
+directory = "./public"
+binding = "ASSETS"
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"
 
-# ==================== R2 Buckets ====================
-[[r2_buckets]]
-binding = "R2"
-bucket_name = "916-slabs-bucket"                  # Your R2 bucket
-
-# ==================== Service Bindings ====================
-[[services]]
-binding = "WORKER_SERVICE"
-service = "916-slabs"                             # Your service binding
-environment = "production"
-
-# ==================== Environment Variables ====================
-[vars]
-ENVIRONMENT = "production"
-SITE_URL = "https://916slabs.pages.dev"
-VERSION = "1.0.0"
-
-# ==================== Site & Build Settings ====================
-[site]
-bucket = "./_site"
-include = ["**/*"]
-exclude = [
-  "node_modules",
-  ".git",
-  "*.toml",
-  "src/workflows/**/*.ts"
-]
-
-# ==================== Observability ====================
 [observability]
 enabled = true
-head_sampling_rate = 1
 
-# ==================== Triggers ====================
-[[triggers]]
-crons = ["0 9 * * *"]
+[vars]
+ENVIRONMENT = "production"
+APP_NAME = "916slabs"
 
-placement.mode = "smart"
+[[kv_namespaces]]
+binding = "KV_SLABS"
+id = "__916slabs1-workers_sites_assets"
+
+[[r2_buckets]]
+binding = "R2_SLABS"
+bucket_name = "916-slabs-bucket"
+
+[[services]]
+binding = "AG_BELL_SLABS"
+service = "916-slabs"
+
+[ai]
+binding = "AI_SLABS"
+
+[dev]
+port = 8787
+local_protocol = "http"
+upstream_protocol = "https"
+
+[placement]
+mode = "smart"
+
+[limits]
+cpu_ms = 300000
