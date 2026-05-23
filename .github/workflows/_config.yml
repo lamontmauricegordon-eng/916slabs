@@ -1,0 +1,73 @@
+# ==================== Site Settings ====================
+title: 916slabs
+description: "916slabs - Development, Projects & Experiments"
+url: "https://916slabs.pages.dev"
+baseurl: ""                    # Leave empty for root domain
+
+# Author / Owner
+author:
+  name: La Montana
+  email: your@email.com        # Change this
+
+# ==================== Build Settings ====================
+markdown: kramdown
+highlighter: rouge
+
+# Output settings
+permalink: /:title/           # Clean URLs (example: /about/)
+timezone: America/New_York
+
+# ==================== Theme & Layout ====================
+# Option 1: Use a remote theme (recommended for Cloudflare Pages)
+remote_theme: jekyll/minima
+
+# Option 2: If you prefer local theme, comment above and uncomment below
+# theme: minima
+
+# Minima theme customization
+minima:
+  skin: auto
+  social_links:
+    github: lamontmauricegordon-eng   # Change to your username
+    # twitter: yourusername
+    # linkedin: yourprofile
+
+# ==================== Collections & Pages ====================
+collections:
+  projects:
+    output: true
+    permalink: /projects/:title/
+  posts:
+    output: true
+    permalink: /blog/:year/:month/:day/:title/
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: project
+
+# ==================== Plugins ====================
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# ==================== Other Settings ====================
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+  - wrangler.toml
+
+# Future-proofing
+future: false
