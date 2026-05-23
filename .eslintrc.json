@@ -1,6 +1,34 @@
 {
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "@typescript-eslint/recommended",
+    "@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": "."
+  },
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "rules": {
     "@typescript-eslint/no-deprecated": "error",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/no-floating-promises": "error",
+    "@typescript-eslint/await-thenable": "error",
+
     "no-restricted-imports": [
       "error",
       {
@@ -12,9 +40,26 @@
           {
             "name": "rimraf",
             "message": "Use 'rimraf@4.x.x' instead."
+          },
+          {
+            "name": "inflight",
+            "message": "This package is deprecated and leaks memory."
           }
         ]
       }
-    ]
-  }
+    ],
+
+    "no-console": "warn",
+    "prefer-const": "error",
+    "eqeqeq": "error",
+    "curly": "error"
+  },
+  "ignorePatterns": [
+    "node_modules/",
+    "_site/",
+    "dist/",
+    ".wrangler/",
+    "*.js",
+    "functions/**/*.js"
+  ]
 }
