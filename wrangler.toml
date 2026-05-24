@@ -1,9 +1,9 @@
-name = "916-slabs"
-compatibility_date = "2024-11-01"
-pages_build_output_dir = "_site"
+name = "916slabs"
+main = "functions/index.ts"
+compatibility_date = "2026-05-23"
 
-[vars]
-ENVIRONMENT = "production"
+[site]
+bucket = "./_site"
 
 [[kv_namespaces]]
 binding = "KV_SLABS"
@@ -19,3 +19,6 @@ service = "916-slabs"
 
 [ai]
 binding = "AI_SLABS"
+
+[vars]
+ENVIRONMENT = "production"

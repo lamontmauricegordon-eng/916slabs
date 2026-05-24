@@ -13,3 +13,5 @@ gem "rexml"
 gem "psych"
 gem "racc"
 gem "stringio"
+
+gem "minima", "~> 2.5"

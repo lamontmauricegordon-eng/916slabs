@@ -1,9 +1,9 @@
 export const onRequest = async (ctx) => {
   const url = new URL(ctx.request.url);
-  const { KV_SLABS, R2_SLABS, AI_SLABS, AG_BELL_SLABS } = ctx.env;
+  const { ASSETS, KV_SLABS, R2_SLABS, AI_SLABS, AG_BELL_SLABS } = ctx.env;
 
   // -----------------------------
-  // STATUS ENDPOINT
+  // API: STATUS
   // -----------------------------
   if (url.pathname === "/api/status") {
     return new Response(
@@ -17,22 +17,18 @@ export const onRequest = async (ctx) => {
   }
 
   // -----------------------------
-  // KV ENDPOINT
-  // /api/kv?key=foo
+  // API: KV
   // -----------------------------
   if (url.pathname.startsWith("/api/kv")) {
     const key = url.searchParams.get("key") || "test-key";
     const value = await KV_SLABS.get(key);
-
-    return new Response(
-      JSON.stringify({ key, value }),
-      { headers: { "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ key, value }), {
+      headers: { "Content-Type": "application/json" }
+    });
   }
 
   // -----------------------------
-  // R2 ENDPOINT
-  // /api/r2
+  // API: R2
   // -----------------------------
   if (url.pathname.startsWith("/api/r2")) {
     const list = await R2_SLABS.list();
@@ -42,30 +38,27 @@ export const onRequest = async (ctx) => {
   }
 
   // -----------------------------
-  // AI ENDPOINT
-  // /api/ai
+  // API: AI
   // -----------------------------
   if (url.pathname.startsWith("/api/ai")) {
     const result = await AI_SLABS.run("@cf/meta/llama-3.1-8b-instruct", {
       prompt: "Say hello to Lamont from 916SLABS."
     });
-
     return new Response(JSON.stringify(result), {
       headers: { "Content-Type": "application/json" }
     });
   }
 
   // -----------------------------
-  // SERVICE BINDING ENDPOINT
-  // /api/service
+  // API: SERVICE BINDING
   // -----------------------------
   if (url.pathname.startsWith("/api/service")) {
-    const response = await AG_BELL_SLABS.fetch("http://internal/status");
-    return response;
+    return AG_BELL_SLABS.fetch("http://internal/status");
   }
 
   // -----------------------------
-  // DEFAULT → LET JEKYLL HANDLE IT
+  // STATIC SITE (JEKYLL)
   // -----------------------------
-  return ctx.next();
+  // Serve static assets and HTML pages
+  return ASSETS.fetch(ctx.request);
 };

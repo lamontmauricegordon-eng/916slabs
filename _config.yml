@@ -1,15 +1,38 @@
-﻿title: "916 Slabs"
-description: "Jekyll + Cloudflare Hybrid"
+title: "916SLABS"
+description: "916SLABS Hybrid Jekyll + Vite + Cloudflare Worker App"
 baseurl: ""
 url: ""
 
 markdown: kramdown
-theme: null
+highlighter: rouge
+
+theme: minima
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+include:
+  - _pages
+  - _posts
+  - assets
+  - dist
+
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - vite.config.js
+  - wrangler.toml
+  - functions
+  - .wrangler
+  - dist
+  - Gemfile
+  - Gemfile.lock
+
+destination: "./_site"
 
 sass:
-  sass_dir: _sass
   style: compressed
 
-collections:
-  posts:
-    output: true
+permalink: /:categories/:title/
