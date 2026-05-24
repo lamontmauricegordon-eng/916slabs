@@ -1,0 +1,8 @@
+﻿<header class="site-header">
+  <nav>
+    <a href="/" class="{% if page.url == '/' %}active{% endif %}">Home</a>
+    <a href="/about" class="{% if page.url contains 'about' %}active{% endif %}">About</a>
+    <a href="/blog" class="{% if page.url contains 'blog' %}active{% endif %}">Blog</a>
+    <button id="theme-toggle">🌓</button>
+  </nav>
+</header>

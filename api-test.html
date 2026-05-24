@@ -1,0 +1,32 @@
+---
+layout: default
+title: API Test
+---
+
+<h1 style="color:white;">916SLABS API Test Page</h1>
+
+<div id="output" style="white-space:pre; background:black; color:#0f0; padding:20px;"></div>
+
+<script>
+async function runTests() {
+  const base = "/api";
+
+  async function get(path) {
+    const res = await fetch(base + path);
+    return res.json();
+  }
+
+  const results = {
+    status: await get("/status"),
+    kv: await get("/kv?key=test"),
+    r2: await get("/r2"),
+    ai: await get("/ai"),
+    service: await get("/service")
+  };
+
+  document.getElementById("output").textContent =
+    JSON.stringify(results, null, 2);
+}
+
+runTests();
+</script>

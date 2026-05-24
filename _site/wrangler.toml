@@ -1,0 +1,21 @@
+name = "916-slabs"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "_site"
+
+[vars]
+ENVIRONMENT = "production"
+
+[[kv_namespaces]]
+binding = "KV_SLABS"
+id = "__916slabs1-workers_sites_assets"
+
+[[r2_buckets]]
+binding = "R2_SLABS"
+bucket_name = "916-slabs-bucket"
+
+[[services]]
+binding = "AG_BELL_SLABS"
+service = "916-slabs"
+
+[ai]
+binding = "AI_SLABS"

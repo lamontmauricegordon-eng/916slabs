@@ -1,0 +1,15 @@
+﻿title: "916 Slabs"
+description: "Jekyll + Cloudflare Hybrid"
+baseurl: ""
+url: ""
+
+markdown: kramdown
+theme: null
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+collections:
+  posts:
+    output: true

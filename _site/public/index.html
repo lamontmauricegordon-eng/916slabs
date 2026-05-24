@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>916slabs</title>
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>916slabs</h1>
+
+    <p>
+      Cloudflare Workers + Pages deployment.
+    </p>
+
+    <div class="card">
+      <h2>Status</h2>
+      <p>Frontend initialized successfully.</p>
+    </div>
+
+    <div class="card">
+      <h2>API</h2>
+      <button id="check-api">Test Worker</button>
+      <pre id="output">Waiting...</pre>
+    </div>
+  </main>
+
+  <script>
+    const button = document.getElementById("check-api");
+    const output = document.getElementById("output");
+
+    button.addEventListener("click", async () => {
+      try {
+        const response = await fetch("/api/status");
+        const data = await response.text();
+
+        output.textContent = data;
+      } catch (err) {
+        output.textContent = err.toString();
+      }
+    });
+  </script>
+</body>
+</html>
