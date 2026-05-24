@@ -1,5 +1,7 @@
 916SLABS — Hybrid Cloudflare Pages + Workers Backend
 
+
+
 916SLABS is a hybrid application built on Cloudflare Pages, combining a Jekyll‑powered frontend with a Cloudflare Pages Functions backend.
 The backend integrates Cloudflare KV, R2, Workers AI, and a service binding to deliver a fast, global, serverless API layer.
 
