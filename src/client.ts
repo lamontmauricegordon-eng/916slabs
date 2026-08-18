@@ -35,6 +35,38 @@ export interface ServiceResponse {
   data: any;
 }
 
+function buildValidatedUrl(baseUrl: string, path: string): string {
+  try {
+    // Minimal path validation
+    if (baseUrl.includes('/../') || /\/%2e%2e\//i.test(baseUrl) || path.includes('/../') || /\/%2e%2e\//i.test(path)) {
+      throw new Error('Invalid path');
+    }
+    
+    const url = new URL(baseUrl);
+    
+    // Protocol + host checks
+    const allowedDomains = ['916slabs.pages.dev'];
+    if (!allowedDomains.includes(url.hostname)) {
+      throw new Error('Invalid host');
+    }
+    if (!['http:', 'https:'].includes(url.protocol)) {
+      throw new Error('Invalid protocol');
+    }
+    
+    // Validate path parameter
+    if (!/^\/[A-Za-z0-9_\-\/\?&=%.]*$/.test(path)) {
+      throw new Error('Invalid parameter');
+    }
+    
+    // Build the full path
+    url.pathname = url.pathname + path;
+    
+    return url.href;
+  } catch {
+    throw new Error('Invalid URL');
+  }
+}
+
 export class SlabsAPI {
   private base: string;
 
@@ -43,7 +75,7 @@ export class SlabsAPI {
   }
 
   private async get<T>(path: string): Promise<T> {
-    const res = await fetch(`${this.base}${path}`);
+    const res = await fetch(buildValidatedUrl(this.base, path));
     if (!res.ok) {
       throw new Error(`Request failed: ${res.status}`);
     }
